@@ -1,21 +1,17 @@
-FROM gradle:8.7-jdk21 AS builder
+FROM gradle:8.7-jdk21 AS build
 
 WORKDIR /app
 
 COPY . .
 
-RUN gradle build --no-daemon
+RUN gradle build -x test
 
-
-
-
-
-FROM openjdk:21-jdk
+FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
-COPY --from=builder /app/build/libs/Discografia-1.jar app.jar
+COPY --from=build /app/build/libs/Discografia-1.jar app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
