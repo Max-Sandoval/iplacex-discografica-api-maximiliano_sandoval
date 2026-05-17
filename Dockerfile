@@ -1,4 +1,4 @@
-FROM gradle:8.7-jdk21 AS build
+FROM gradle:8.14-jdk21 AS build
 
 WORKDIR /app
 
@@ -14,4 +14,4 @@ COPY --from=build /app/build/libs/Discografia-1.jar app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
